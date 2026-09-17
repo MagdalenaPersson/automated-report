@@ -1,7 +1,11 @@
 import pandas as pd
 import pytest
 
-from report_tools.analysis import calculate_channel_kpis, calculate_device_kpis
+from report_tools.analysis import (
+    calculate_channel_kpis, 
+    calculate_device_kpis,
+    calculate_daily_kpis
+)
 
 
 def test_calculate_channel_kpis():
@@ -115,3 +119,39 @@ def test_calculate_device_kpis_zero_sessions():
 
     assert pd.isna(result.loc[0, "conversion_rate"])
     assert pd.isna(result.loc[0, "revenue_per_session"])
+
+
+def test_calculate_daily_kpis():
+    """Testar att KPI:er beräknas korrekt per dag."""
+
+    data = pd.DataFrame(
+        {
+            "date": pd.to_datetime(
+                ["2026-01-01", "2026-01-01"]
+            ),
+            "sessions": [200, 300],
+            "users": [150, 220],
+            "pageviews": [600, 900],
+            "conversions": [20, 30],
+            "revenue": [2000, 3000],
+            "marketing_cost": [200, 300],
+        }
+    )
+    expected = pd.DataFrame(
+        {
+            "date": pd.to_datetime(["2026-01-01"]),
+            "sessions": [500],
+            "users": [370],
+            "pageviews": [1500],
+            "conversions": [50],
+            "revenue": [5000.0],
+            "marketing_cost": [500.0],
+            "conversion_rate": [10.0],
+            "revenue_per_session": [10.0],
+            "roas": [10.0],
+        }
+    )
+
+    result = calculate_daily_kpis(data)
+
+    pd.testing.assert_frame_equal(result, expected)
