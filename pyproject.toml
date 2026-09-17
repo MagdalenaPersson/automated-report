@@ -1,0 +1,16 @@
+[build_system]
+requires = ["setuptools>=77.0.3"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "automated_report"
+version = "0.1.0"
+description = "Analysprogram för webbtrafik"
+requires-python = ">=3.13"
+dependencies = [
+    "pandas",
+    "pytest",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]

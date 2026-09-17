@@ -1,0 +1,15 @@
+README.md
+pyproject.toml
+src/automated_report.egg-info/PKG-INFO
+src/automated_report.egg-info/SOURCES.txt
+src/automated_report.egg-info/dependency_links.txt
+src/automated_report.egg-info/requires.txt
+src/automated_report.egg-info/top_level.txt
+src/report_tools/__init__.py
+src/report_tools/analysis.py
+src/report_tools/config.py
+src/report_tools/loading.py
+src/report_tools/models.py
+src/report_tools/output.py
+src/report_tools/reporting.py
+tests/test_analysis.py

@@ -9,10 +9,12 @@ logger = logging.getLogger(__name__)
 def load_web_traffic(path: Path) -> pd.DataFrame:
     """Läs in webbtrafik från en CSV-fil."""
 
-    logger.info("Läser in data för webbtrafik från %s", path)
-
     data = pd.read_csv(path)
 
-    logger.info("Läste in %s rader", len(data))
+    logger.info(
+        "Läste in %s rader från datasetet %s",
+        len(data),
+        path.name
+    )
 
     return data 
