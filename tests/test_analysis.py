@@ -1,47 +1,62 @@
 import pandas as pd
 import pytest
 
-from report_tools.cleaning import clean_web_analytics
+from report_tools.analysis import calculate_channel_kpis
 
 
-def test_clean_web_analytics() -> None:
-    """Testar att datan rensas korrekt."""
-
+def test_calculate_channel_kpis():
+    """Testar att KPI:er beräknas korrekt per marknadsföringskanal."""
     data = pd.DataFrame(
         {
-            "date": ["2024-01-01", "2024-01-02"],
-            "channel": [" Organic ", "ORGANIC"],
-            "device": [" Mobile ", "MOBILE"],
-            "sessions": ["100", "50"],
-            "users": ["80", "40"],
-            "pageviews": ["200", "120"],
-            "bounce_rate": [0.45, None],
-            "avg_session_duration": [300, None],
-            "conversions": [None, 2],
-            "revenue": [None, 150],
-            "marketing_cost": [None, 50],
+            "channel": ["Organic", "Paid"],
+            "sessions": [100, 200],
+            "users": [50, 30],
+            "pageviews": [300, 100],
+            "conversions": [5, 10],
+            "revenue": [1000, 5000],
+            "marketing_cost": [200, 500],
+            "bounce_rate": [0.50, 0.70],
+            "avg_session_duration": [120, 180]
         }
-    ) 
+    )
     expected = pd.DataFrame(
         {
-            "date": pd.to_datetime(["2024-01-01", "2024-01-02"]),
-            "channel": ["Organic", "Organic"],
-            "device": ["Mobile", "Mobile"],
-            "sessions": [100, 50],
-            "users": [80, 40],
-            "pageviews": [200, 120],
-            "bounce_rate": [0.45, 0.45],
-            "avg_session_duration": [300, 300],
-            "conversions": [0, 2],
-            "revenue": [0.0, 150.0],
-            "marketing_cost": [0.0, 50.0],
+           "channel": ["Organic", "Paid"],
+            "sessions": [100, 200],
+            "users": [50, 30],
+            "pageviews": [300, 100],
+            "conversions": [5, 10],
+            "revenue": [1000, 5000],
+            "marketing_cost": [200, 500],
+            "avg_bounce_rate": [0.50, 0.70],
+            "avg_session_duration": [120, 180],
+            "conversion_rate": [5.0, 5.0],
+            "revenue_per_session": [10.0, 25.0],
+            "roas": [5.0, 10.0]
         }
     )
 
-    result = clean_web_analytics(data)
+    result = calculate_channel_kpis(data)
 
-    pd.testing.assert_frame_equal(
-        result[expected.columns], 
-        expected
+    pd.testing.assert_frame_equal(result, expected)
+
+
+def test_calculate_channel_kpis_zero_marketing_cost():
+    """Testar att ROAS blir NaN när marketing_cost är 0."""
+    data = pd.DataFrame(
+        {
+            "channel": ["Organic"],
+            "sessions": [100],
+            "users": [50],
+            "pageviews": [300],
+            "conversions": [5],
+            "revenue": [1000],
+            "marketing_cost": [0],
+            "bounce_rate": [0.50],
+            "avg_session_duration": [120]
+        }
     )
 
+    result = calculate_channel_kpis(data)
+
+    assert pd.isna(result.loc[0, "roas"])
