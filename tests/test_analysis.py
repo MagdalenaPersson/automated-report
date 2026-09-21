@@ -155,3 +155,23 @@ def test_calculate_daily_kpis():
     result = calculate_daily_kpis(data)
 
     pd.testing.assert_frame_equal(result, expected)
+
+
+def test_calculate_daily_kpis_zero_marketing_cost():
+    """Testar att ROAS blir NaN när marketing_cost är 0."""
+
+    data = pd.DataFrame(
+        {
+            "date": pd.to_datetime(["2026-01-01"]),
+            "sessions": [100],
+            "users": [50],
+            "pageviews": [300],
+            "conversions": [5],
+            "revenue": [1000.0],
+            "marketing_cost": [0.0],
+        }
+    )
+
+    result = calculate_daily_kpis(data)
+
+    assert pd.isna(result.loc[0, "roas"])
