@@ -115,7 +115,7 @@ def plot_roas_by_channel(channel_kpis):
         color=project_palette[0]
     )
 
-    plt.title("ROAS per Channel", figsize=16)
+    plt.title("ROAS per Channel", fontsize=16)
     plt.xlabel("ROAS (Revenue generated per SEK spent)")
     plt.ylabel("Channel")
 
@@ -123,3 +123,13 @@ def plot_roas_by_channel(channel_kpis):
 
     return fig
 
+
+def save_chart(fig, path): 
+    """Sparar ett diagram som PNG."""
+    fig.savefig(
+        path,
+        dpi=150,
+        bbox_inches="tight"
+    )
+
+    plt.close(fig)

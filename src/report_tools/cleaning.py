@@ -1,7 +1,4 @@
 import pandas as pd
-import logging
-
-logger = logging.getLogger(__name__)
 
 def clean_web_analytics(data: pd.DataFrame) -> pd.DataFrame:
     """Rensar och städar upp i datasetet."""
@@ -61,10 +58,6 @@ def clean_web_analytics(data: pd.DataFrame) -> pd.DataFrame:
     data = data.drop_duplicates() # ta bort dubletter
 
     data = data.reset_index(drop=True) # reset index
-
-    logger.info("Datastädning klar. Antal rader: %s", len(data))
-
-    logger.info("Saknade värden per kolumn:\n%s", data.isna().sum())
 
     return data
 

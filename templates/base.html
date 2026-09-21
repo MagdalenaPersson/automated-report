@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>
+        {% block title %}
+        Web Analytics Report
+        {% endblock %}
+    </title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            color: #303030;
+            background-color: #F7F3EE;
+            margin: 40px;
+        }
+    
+        header {
+            border-bottom: 3px solid #315C5A;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: #315C5A;
+        }
+
+        h2 {
+            color: #315C5A;
+            border-bottom: 2px solid #C58B7B;
+            padding-bottom: 8px;
+        }
+
+        footer {
+            margin-top: 40px;
+            padding-top: 15px;
+            border-top: 1px solid #E8DED3;
+            font-size: 12px;
+        }
+
+        .kpi-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 10px;
+            margin-bottom: 30px;
+        }
+
+        .kpi-table td {
+            background-color: #E8DED3;
+            padding: 15px;
+            text-align: center;
+            border: none;
+            width: 25%;
+        }
+
+        .kpi-table h3 {
+            margin: 0 0 8px 0;
+            font-size: 14px;
+            color: #315C5A;
+        }
+
+        .kpi-table p {
+            margin: 0;
+            font-size: 24px;
+            font-weight: bold;
+            color: #303030;
+        }
+
+        img {
+            max-width: 80%;
+            height: auto;
+            display: block;
+            margin: 20px auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            margin-bottom: 30px;
+        }
+
+        th,
+        td {
+            padding: 10px 12px;
+            border: 1px solid #E8DED3;
+            text-align: left;
+        }
+
+        th {
+            background-color: #315C5A;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #F7F3EE;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Web Analytics Report</h1>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>Generated automatically with Python, Jinja2 and WeasyPrint.</p>
+    </footer>
+
+</body>
+
+</html>
+
+
