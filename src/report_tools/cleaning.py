@@ -1,3 +1,5 @@
+"""Rensar och omvandlar webbtrafikdata inför analys."""
+
 import pandas as pd
 
 def clean_web_analytics(data: pd.DataFrame) -> pd.DataFrame:

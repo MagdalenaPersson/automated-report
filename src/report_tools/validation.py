@@ -1,3 +1,5 @@
+"""Validerar den rensade datan."""
+
 import pandas as pd
 
 def validate_clean_data(data: pd.DataFrame) -> None:

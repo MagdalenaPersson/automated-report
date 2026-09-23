@@ -1,4 +1,4 @@
-"""Sparar rapporter till filer."""
+"""Hanterar sparning av genererade rapporter."""
 
 from pathlib import Path
 import pandas as pd

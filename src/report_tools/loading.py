@@ -1,4 +1,4 @@
-"""Filinläsning av webbtrafik"""
+"""Läser in webbtrafikdata från CSV-fil."""
 
 import pandas as pd
 from pathlib import Path

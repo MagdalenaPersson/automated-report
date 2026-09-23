@@ -1,3 +1,5 @@
+"""Beräknar KPI:er och sammanställer analysresultat."""
+
 import pandas as pd
 
 

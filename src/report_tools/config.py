@@ -1,3 +1,5 @@
+"""Innehåller konfiguration och sökvägar för rapportgenereringen."""
+
 from dataclasses import dataclass
 from pathlib import Path
 
