@@ -1,6 +1,7 @@
-from pathlib import Path
+from jinja2 import Environment, FileSystemLoader    
+from weasyprint import HTML
 
-from jinja2 import Environment, FileSystemLoader
+from datetime import date
 
 from . import (
     ReportConfig,
@@ -19,18 +20,22 @@ from . import (
 def main() -> None:
     """Kör programmet"""
 
+    # Konfiguration
     config = ReportConfig()
 
+    # Läs in data
     data = load_web_traffic(config.input_path)
 
+    # Rensa och validera data
     cleaned_data = clean_web_analytics(data)
-
     validate_clean_data(cleaned_data)
 
+    # Beräkna KPI:er
     channel_kpis = calculate_channel_kpis(cleaned_data)
     device_kpis = calculate_device_kpis(cleaned_data)
     daily_kpis = calculate_daily_kpis(cleaned_data)
 
+    # Formatera KPI:er för rapporten
     device_kpis_display = device_kpis.copy()
 
     device_kpis_display["conversion_rate"] = (
@@ -41,10 +46,11 @@ def main() -> None:
         device_kpis_display["revenue"].round(2)
     )
 
-
+    # Skapa mapp för diagram
     chart_dir = config.output_dir / "charts"
     chart_dir.mkdir(parents=True, exist_ok=True)
 
+    # Skapa och spara diagram
     revenue_vs_cost_fig = plot_revenue_vs_cost_by_channel(channel_kpis)
     save_chart(
         revenue_vs_cost_fig,
@@ -65,29 +71,33 @@ def main() -> None:
         chart_dir / "revenue_over_time.png"
     )
 
-
+    # Beräkna övergripande KPI:er
     total_sessions = cleaned_data["sessions"].sum()
-    total_conversions = cleaned_data["conversions"].sum()
+    total_conversions = int(cleaned_data["conversions"].sum())
     total_revenue = cleaned_data["revenue"].sum()
 
     overall_conversion_rate = (
         total_conversions / total_sessions * 100
     )
 
+    # Formatera övergripande KPI:er för rapporten
     total_sessions_display = f"{total_sessions / 1_000_000:.2f} M"
     total_revenue_display = f"{total_revenue / 1_000_000:.2f} MSEK"
-    overall_conversion_rate_display = f"{overall_conversion_rate:.2f} "
+    overall_conversion_rate_display = f"{overall_conversion_rate:.2f} %"
 
+    # Ange sökvägar till diagrammen för Jinja2
     revenue_vs_cost_chart = "charts/revenue_vs_cost_by_channel.png"
     roas_chart = "charts/roas_by_channel.png"
     revenue_over_time_chart = "charts/revenue_over_time.png"
 
+    # Ladda Jinja2-mallen
     env = Environment(
         loader=FileSystemLoader(config.template_dir)
     )
 
     template = env.get_template("report.html")
 
+    # Skapa HTML-rapporten
     html = template.render(
         total_sessions=total_sessions_display,
         total_conversions=total_conversions,
@@ -101,7 +111,10 @@ def main() -> None:
         revenue_over_time_chart=revenue_over_time_chart
     )
 
-    output_file = config.output_dir / "report.html"
+    # Spara HTML-rapporten
+    today = date.today().isoformat()
+
+    output_file = config.output_dir / f"report_{today}.html"
 
     config.output_dir.mkdir(exist_ok=True)
 
@@ -109,6 +122,18 @@ def main() -> None:
         html,
         encoding="utf-8"
     )
+
+    # Skapa PDF med WeasyPrint
+    pdf_file = config.output_dir / f"report_{today}.pdf"
+
+    HTML(
+        string=html,
+        base_url=str(config.output_dir)
+    ).write_pdf(pdf_file)
+
+    # Bekräfta att rapporterna har skapats
+    print(f"HTML-rapport skapad: {output_file}")
+    print(f"PDF-rapport skapad: {pdf_file}")
 
 if __name__ == "__main__":
     main()
