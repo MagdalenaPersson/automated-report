@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>
+        
+Web Analytics Report
+
+    </title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            color: #303030;
+            background-color: #F7F3EE;
+            margin: 40px;
+        }
+    
+        header {
+            border-bottom: 3px solid #315C5A;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: #315C5A;
+        }
+
+        h2 {
+            color: #315C5A;
+            border-bottom: 2px solid #C58B7B;
+            padding-bottom: 8px;
+        }
+
+        footer {
+            margin-top: 40px;
+            padding-top: 15px;
+            border-top: 1px solid #E8DED3;
+            font-size: 12px;
+        }
+
+        .kpi-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 10px;
+            margin-bottom: 30px;
+        }
+
+        .kpi-table td {
+            background-color: #E8DED3;
+            padding: 15px;
+            text-align: center;
+            border: none;
+            width: 25%;
+        }
+
+        .kpi-table h3 {
+            margin: 0 0 8px 0;
+            font-size: 14px;
+            color: #315C5A;
+        }
+
+        .kpi-table p {
+            margin: 0;
+            font-size: 24px;
+            font-weight: bold;
+            color: #303030;
+        }
+
+        img {
+            max-width: 80%;
+            height: auto;
+            display: block;
+            margin: 20px auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            margin-bottom: 30px;
+        }
+
+        th,
+        td {
+            padding: 10px 12px;
+            border: 1px solid #E8DED3;
+            text-align: left;
+        }
+
+        th {
+            background-color: #315C5A;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #F7F3EE;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Web Analytics Report</h1>
+    </header>
+
+    <main>
+        
+
+    <!-- Summary -->
+    <section>
+        <h2>Summary</h2>
+
+        <p>
+            This report provides an overview of website traffic,
+            marketing performance and revenue.
+        </p>
+    </section>
+
+        <!-- KPIs -->
+    <section>
+        <h2>Key Performance Indicators</h2>
+
+        <table class="kpi-table">
+            <tr>
+                <td>
+                    <h3>Total Sessions</h3>
+                    <p>1.93 M</p>
+                </td>
+
+                <td>
+                    <h3>Total Conversions</h3>
+                    <p>63409</p>
+                </td>
+
+                <td>
+                    <h3>Total Revenue</h3>
+                    <p>52.67 MSEK</p>
+                </td>
+
+                <td>
+                    <h3>Conversion Rate</h3>
+                    <p>3.28 %</p>
+                </td>
+            </tr>
+        </table>
+                
+    </section>
+
+
+    <!-- Revenue vs Marketing Cost -->
+    <section>
+        <h2>Revenue vs Marketing Cost</h2>
+
+        <img src="charts/revenue_vs_cost_by_channel.png"
+             alt="Revenue vs Marketing Cost by Channel">
+    </section>
+
+
+    <!-- ROAS -->
+    <section>
+        <h2>ROAS by Channel</h2>
+
+        <img src="charts/roas_by_channel.png"
+             alt="ROAS by Channel">
+    </section>
+
+
+    <!-- Revenue over Time -->
+    <section>
+        <h2>Revenue over Time</h2>
+
+        <img src="charts/revenue_over_time.png"
+             alt="Revenue over Time">
+    </section>
+
+
+    <!-- Device KPI Table -->
+    <section>
+        <h2>Performance by Device</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Device</th>
+                    <th>Sessions</th>
+                    <th>Conversions</th>
+                    <th>Conversion Rate</th>
+                    <th>Revenue</th>
+                </tr>
+            </thead>
+            
+            <tbody>
+                
+                    <tr>
+                        <td>Desktop</td>
+                        <td>767446</td>
+                        <td>27434</td>
+                        <td>3.57%</td>
+                        <td>22646681.63 SEK</td>
+                    </tr>
+                
+                    <tr>
+                        <td>Mobile</td>
+                        <td>888357</td>
+                        <td>27124</td>
+                        <td>3.05%</td>
+                        <td>22438290.1 SEK</td>
+                    </tr>
+                
+                    <tr>
+                        <td>Tablet</td>
+                        <td>276458</td>
+                        <td>8851</td>
+                        <td>3.2%</td>
+                        <td>7583922.49 SEK</td>
+                    </tr>
+                
+            </tbody>
+    
+        </table>
+    </section>
+
+    </main>
+
+    <footer>
+        <p>Generated automatically with Python, Jinja2 and WeasyPrint.</p>
+    </footer>
+
+</body>
+
+</html>
+
